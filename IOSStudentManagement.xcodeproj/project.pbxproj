@@ -15,6 +15,8 @@
 		9E810325217C48F000814C35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E810323217C48F000814C35 /* LaunchScreen.storyboard */; };
 		9E810330217C48F000814C35 /* IOSStudentManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81032F217C48F000814C35 /* IOSStudentManagementTests.swift */; };
 		9E81033B217C48F000814C35 /* IOSStudentManagementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81033A217C48F000814C35 /* IOSStudentManagementUITests.swift */; };
+		9E81034B217C760600814C35 /* StudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81034A217C760600814C35 /* StudentViewController.swift */; };
+		9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81034F217C8D6500814C35 /* AddStudentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		9E810336217C48F000814C35 /* IOSStudentManagementUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOSStudentManagementUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E81033A217C48F000814C35 /* IOSStudentManagementUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSStudentManagementUITests.swift; sourceTree = "<group>"; };
 		9E81033C217C48F000814C35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E81034A217C760600814C35 /* StudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentViewController.swift; sourceTree = "<group>"; };
+		9E81034F217C8D6500814C35 /* AddStudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStudentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 			children = (
 				9E810317217C48EB00814C35 /* AppDelegate.swift */,
 				9E810319217C48EB00814C35 /* ViewController.swift */,
+				9E81034A217C760600814C35 /* StudentViewController.swift */,
+				9E81034F217C8D6500814C35 /* AddStudentViewController.swift */,
 				9E81031B217C48EB00814C35 /* Main.storyboard */,
 				9E810321217C48F000814C35 /* Assets.xcassets */,
 				9E810323217C48F000814C35 /* LaunchScreen.storyboard */,
@@ -260,6 +266,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E81031A217C48EB00814C35 /* ViewController.swift in Sources */,
+				9E81034B217C760600814C35 /* StudentViewController.swift in Sources */,
+				9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */,
 				9E810320217C48EB00814C35 /* IOSStudentManagement.xcdatamodeld in Sources */,
 				9E810318217C48EB00814C35 /* AppDelegate.swift in Sources */,
 			);

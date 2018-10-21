@@ -6,15 +6,17 @@
 //  Copyright © 2018 Harry Kay. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class ViewController: UIViewController {
-
+class StudentViewController: UIViewController {
+    
+    @IBOutlet weak var label: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        label.text = appDelegate.getStudent()
     }
-
 }
 
