@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class StudentViewController: UIViewController {
     
@@ -15,8 +16,6 @@ class StudentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        label.text = appDelegate.getStudent()
     }
 }
 

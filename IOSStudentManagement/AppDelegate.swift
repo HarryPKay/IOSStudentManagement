@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     // MARK: - Core Data Saving support
-
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -88,5 +88,83 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func getContext () -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    func storeStudent (studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String) {
+        let context = getContext()
+        
+        //retrieve the entity that we just created
+        let entity =  NSEntityDescription.entity(forEntityName: "Student", in: context)
+        
+        let transc = NSManagedObject(entity: entity!, insertInto: context)
+        
+        //set the entity values
+        transc.setValue(studentID, forKey: "studentID")
+        transc.setValue(lName, forKey: "lName")
+        transc.setValue(fName, forKey: "fName")
+        transc.setValue(dateOfBirth, forKey: "dateOfBirth")
+        transc.setValue(gender, forKey: "gender")
+        transc.setValue(course, forKey: "course")
+        
+        //save the object
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
+    }
+    
+    func getPersonInfo () -> String {
+        var info = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        //create a fetch request, telling it about the entity
+        let fetchRequest: NSFetchRequest<Student> = Student.fetchRequest()
+        
+        do {
+            //go get the results
+            let searchResults = try getContext().fetch(fetchRequest)
+            
+            //I like to check the size of the returned results!
+            print ("num of results = \(searchResults.count)")
+            
+            //You need to convert to NSManagedObject to use 'for' loops
+            for trans in searchResults as [NSManagedObject] {
+                let studentID = String(trans.value(forKey: "studentID") as! Int)
+                let lName = trans.value(forKey: "lName") as! String
+                let fName = trans.value(forKey: "fName") as! String
+                let gender = trans.value(forKey: "gender") as! String
+                let course = trans.value(forKey: "course") as! String
+                let strDate = dateFormatter.string(from: trans.value(forKey: "dateOfBirth") as! Date)
+                info = info + studentID + ", " + fName + " " + lName + ", " + strDate + " " + gender + " " + course +  "\n"
+            }
+        } catch {
+            print("Error with request: \(error)")
+        }
+        return info;
+    }
+    
+    func removeRecords () {
+        let context = getContext()
+        // delete everything in the table Person
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Student")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            print ("There was an error")
+        }
+    }
+
 }
 

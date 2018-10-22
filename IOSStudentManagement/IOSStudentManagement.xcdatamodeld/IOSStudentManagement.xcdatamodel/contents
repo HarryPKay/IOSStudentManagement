@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Exam" representedClassName="Exam" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="examID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="attendees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="attends" inverseEntity="Student" syncable="YES"/>
+    </entity>
     <entity name="Student" representedClassName="Student" syncable="YES" codeGenerationType="class">
         <attribute name="course" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateOfBirth" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="fName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="studentID" optional="YES" attributeType="Integer 16" minValueString="1" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="studentID" optional="YES" attributeType="Integer 16" minValueString="1" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="attends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exam" inverseName="attendees" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Student" positionX="-27" positionY="18" width="128" height="135"/>
+        <element name="Exam" positionX="158.3203125" positionY="22.64453125" width="128" height="105"/>
+        <element name="Student" positionX="-82.30078125" positionY="-7.4140625" width="128" height="150"/>
     </elements>
 </model>
