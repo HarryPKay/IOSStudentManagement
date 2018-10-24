@@ -69,9 +69,14 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         self.coursePicker.dataSource = self
         self.coursePicker.delegate = self
         preloadFields()
+        
+        if studentToModifyByID == nil {
+            deleteButton.isEnabled = false
+        }
     }
     
     
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var streetField: UITextField!
     @IBOutlet weak var cityField: UITextField!
     @IBOutlet weak var stateField: UITextField!
@@ -86,6 +91,16 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
     @IBAction func touchBack(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func touchDelete(_ sender: UIButton) {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if let studentToDeleteByID = studentToModifyByID {
+            appDelegate.removeStudent(for: studentToDeleteByID)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     @IBAction func touchDone(_ sender: UIButton) {
         
