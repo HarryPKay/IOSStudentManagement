@@ -24,7 +24,10 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         studentIDField.text = String(studentToModifyByID ?? -1)
         fNameField.text = student?.value(forKey: "fName") as? String
         lNameField.text = student?.value(forKey: "lName") as? String
-        
+        streetField.text = student?.value(forKey: "street") as? String
+        stateField.text = student?.value(forKey: "state") as? String
+        cityField.text = student?.value(forKey: "city") as? String
+        postCodeField.text = student?.value(forKey: "postCode") as? String
         
         if (student?.value(forKey: "gender") as! String) == "Male" {
             genderSC.selectedSegmentIndex = 0;
@@ -68,6 +71,11 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         preloadFields()
     }
     
+    
+    @IBOutlet weak var streetField: UITextField!
+    @IBOutlet weak var cityField: UITextField!
+    @IBOutlet weak var stateField: UITextField!
+    @IBOutlet weak var postCodeField: UITextField!
     @IBOutlet weak var studentIDField: UITextField!
     @IBOutlet weak var fNameField: UITextField!
     @IBOutlet weak var lNameField: UITextField!
@@ -80,6 +88,8 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     
     @IBAction func touchDone(_ sender: UIButton) {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // Retrieve text from fields that are not text labels
         var gender = ""
@@ -95,12 +105,29 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
             course = pickerData[0]
         }
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.storeStudent(studentID: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender)
-        
+        //TODO: check that all fields are full
+        // Should we update?
         if studentToModifyByID != nil {
+            
+            appDelegate.updateStudent(for: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender, postCode: postCodeField.text!, state: stateField.text!, city: cityField.text!, street:  streetField.text!)
             dismiss(animated: true, completion: nil)
+            
+        // Or be adding new students?
+        } else {
+            
+            appDelegate.storeStudent(for: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender, postCode: postCodeField.text!, state: stateField.text!, city: cityField.text!, street:  streetField.text!)
+            clearFields()
         }
+    }
+    
+    func clearFields() {
+        studentIDField.text = ""
+        fNameField.text = ""
+        lNameField.text = ""
+        streetField.text = ""
+        stateField.text = ""
+        cityField.text = ""
+        postCodeField.text = ""
     }
 }
 

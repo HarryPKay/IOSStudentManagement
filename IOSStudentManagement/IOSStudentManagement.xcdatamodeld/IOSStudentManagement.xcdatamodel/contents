@@ -15,7 +15,7 @@
         <attribute name="lName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="postCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="streetAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="studentID" optional="YES" attributeType="Integer 16" minValueString="1" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="attends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exam" inverseName="attendees" inverseEntity="Exam" syncable="YES"/>
     </entity>

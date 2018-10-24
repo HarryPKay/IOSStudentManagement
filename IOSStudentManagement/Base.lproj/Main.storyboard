@@ -254,11 +254,15 @@
                         <viewLayoutGuide key="safeArea" id="L9S-TB-k1D"/>
                     </view>
                     <connections>
+                        <outlet property="cityField" destination="PXB-CQ-bsX" id="g2z-RP-kZu"/>
                         <outlet property="coursePicker" destination="2ls-xT-HVG" id="wQ2-Oo-7N8"/>
                         <outlet property="dateOfBirthDP" destination="IoA-0D-I6w" id="Rv8-2N-cxv"/>
                         <outlet property="fNameField" destination="37y-dx-GWQ" id="mE5-jh-LUj"/>
                         <outlet property="genderSC" destination="hQf-a3-0Qb" id="0MQ-6X-CWW"/>
                         <outlet property="lNameField" destination="un1-jC-DSz" id="3TS-wF-LPd"/>
+                        <outlet property="postCodeField" destination="oze-Ah-6Cs" id="mn6-LW-C20"/>
+                        <outlet property="stateField" destination="4x6-st-wov" id="YaR-VY-J2z"/>
+                        <outlet property="streetField" destination="xvg-Nz-rn3" id="tB6-vl-Cv4"/>
                         <outlet property="studentIDField" destination="Kws-Zu-CXH" id="GHP-wo-QHv"/>
                     </connections>
                 </viewController>

@@ -65,26 +65,31 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let dateOfBirth = formatter.string(from: dateOfBirthDate)
         
         //TODO: Consider addresses
-        let message = "Student ID:\t" + strStudentID[0]
-        + "\nFirst Name:\t" + (student?.value(forKey: "fName") as! String)
-        + "\nLast Name:\t" + (student?.value(forKey: "lName") as! String)
-        + "\nGender:\t" + (student?.value(forKey: "gender") as! String)
-        + "\ncourse:\t" + (student?.value(forKey: "course") as! String)
-        + "\ndateOfBirth:\t" + dateOfBirth
-        + "\naddress:\t"
+        let studentDetails = "Student ID:\t" + strStudentID[0]
+            + "\nFirst Name:\t" + (student?.value(forKey: "fName") as! String)
+            + "\nLast Name:\t" + (student?.value(forKey: "lName") as! String)
+            + "\nGender:\t" + (student?.value(forKey: "gender") as! String)
+            + "\ndateOfBirth:\t" + dateOfBirth
+            + "\n\ncourse:\n" + (student?.value(forKey: "course") as! String)
+        let studentAddress = "\n\naddress:\n" + (student?.value(forKey: "street") as! String)
+            + " " + (student?.value(forKey: "city") as! String)
+            + " " + (student?.value(forKey: "state") as! String)
+            + " " + (student?.value(forKey: "postCode") as! String)
+        let message = studentDetails + studentAddress
+        
         
         let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
         
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        //TODO: show exams
         let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToAddStudentView(with: nil) })
-        
+        let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToAddStudentView(with: nil) })
         let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToAddStudentView(with: studentID)
         })
         
         alertController.addAction(alertActionAddExam)
         alertController.addAction(alertActionEditStudent)
+        alertController.addAction(alertActionShowOnMap)
         alertController.addAction(alertActionCancel)
 
         present(alertController, animated: true, completion: nil)
@@ -117,11 +122,14 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         loadStudentsToData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadStudentsToData()
+        tableView.reloadData()
+    }
 
     @IBAction func editButton(_ sender: UIButton) {
         flipEditMode();
     }
-    
     
     func flipEditMode() {
         

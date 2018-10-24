@@ -11,9 +11,8 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -94,21 +93,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return appDelegate.persistentContainer.viewContext
     }
     
-    func storeStudent (studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String) {
+    func storeStudent (for studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String, postCode: String, state: String, city: String, street: String) {
         let context = getContext()
         
         //retrieve the entity that we just created
         let entity =  NSEntityDescription.entity(forEntityName: "Student", in: context)
         
-        let transc = NSManagedObject(entity: entity!, insertInto: context)
+        let student = NSManagedObject(entity: entity!, insertInto: context)
         
         //set the entity values
-        transc.setValue(studentID, forKey: "studentID")
-        transc.setValue(lName, forKey: "lName")
-        transc.setValue(fName, forKey: "fName")
-        transc.setValue(dateOfBirth, forKey: "dateOfBirth")
-        transc.setValue(gender, forKey: "gender")
-        transc.setValue(course, forKey: "course")
+        student.setValue(studentID, forKey: "studentID")
+        student.setValue(lName, forKey: "lName")
+        student.setValue(fName, forKey: "fName")
+        student.setValue(dateOfBirth, forKey: "dateOfBirth")
+        student.setValue(gender, forKey: "gender")
+        student.setValue(course, forKey: "course")
+        student.setValue(postCode, forKey: "postCode")
+        student.setValue(state, forKey: "state")
+        student.setValue(street, forKey: "street")
+        student.setValue(city, forKey: "city")
         
         //save the object
         do {
@@ -154,6 +157,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error with request: \(error)")
         }
         return nil
+    }
+    
+    func updateStudent(for studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String, postCode: String, state: String, city: String, street: String) {
+        
+        let context = getContext()
+        
+        // Get the student by ID and then set it's values
+        // studentID should never change.
+        if let student = getStudent(for: studentID) {
+            student.setValue(lName, forKey: "lName")
+            student.setValue(fName, forKey: "fName")
+            student.setValue(dateOfBirth, forKey: "dateOfBirth")
+            student.setValue(gender, forKey: "gender")
+            student.setValue(course, forKey: "course")
+            student.setValue(postCode, forKey: "postCode")
+            student.setValue(state, forKey: "state")
+            student.setValue(street, forKey: "street")
+            student.setValue(city, forKey: "city")
+        }
+        
+        // Attempt to update with new values
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
     }
     
     func removeStudent(for ID: Int) {
