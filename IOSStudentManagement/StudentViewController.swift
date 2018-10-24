@@ -37,18 +37,43 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
     // Responds to user selecting specific cells within table view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        //TODO: show additional detail maybe? if in edit mode, go to edit place
-        //tableView.setEditing(true, animated: true)
-    
+        // Get the studentID that corresponds to this cell.
+        let strStudentID = data[indexPath.row].split(separator: ",")
+        let studentID = Int(strStudentID[0]) ?? -1
         
-        let alertController = UIAlertController(title: "Hint", message: "You have selected row \(indexPath.row).", preferredStyle: .alert)
+        // Retrieve that student's detail and echo it.
+        if studentID == -1 {
+            return
+        }
+        let student = appDelegate.getStudent(for: studentID)
+        let dateOfBirthDate = student?.value(forKey: "dateOfBirth") as! Date
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateOfBirth = formatter.string(from: dateOfBirthDate)
+        
+        let message = "Student ID:\t" + strStudentID[0]
+        + "\nFirst Name:\t" + (student?.value(forKey: "fName") as! String)
+        + "\nLast Name:\t" + (student?.value(forKey: "lName") as! String)
+        + "\nGender:\t" + (student?.value(forKey: "gender") as! String)
+        + "\ncourse:\t" + (student?.value(forKey: "course") as! String)
+        + "\ndateOfBirth:\t" + dateOfBirth
+        + "\naddress:\t"
+        
+        let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
+        
+       //let alertfName = UIAlertController(
         
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let alertActionDestructive = UIAlertAction(title: "AddExam", style: .destructive, handler: { action in self.jumpToAddStudentView() })
         
-        alertController.addAction(alertActionDestructive)
+        //TODO: show exams
+        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToAddStudentView() })
+        
+        let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToAddStudentView() })
+        
+        alertController.addAction(alertActionAddExam)
+        alertController.addAction(alertActionEditStudent)
         alertController.addAction(alertActionCancel)
 
         present(alertController, animated: true, completion: nil)
@@ -68,15 +93,13 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
     // deletes students
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        // Get the studentID for the corresponding
-        // cell selected
-        let strStudentID = data[indexPath.row].characters.split(separator: ",").map(String.init)
+        // Get the studentID for the corresponding cell selected
+        let strStudentID = data[indexPath.row].split(separator: ",")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // Are we editing students and therefor
         // also able to delete students.
         if editingStyle == .delete {
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             
             // Delete the student if found
             if let studentID = Int(strStudentID[0]) {
@@ -121,7 +144,7 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableView.setEditing(true, animated: true)
         }
         else {
-          editLabel.setTitle("Edit", for: UIControl.State.normal)
+          editLabel.setTitle("Delete", for: UIControl.State.normal)
             tableView.setEditing(false, animated: true)
             
         }

@@ -54,7 +54,10 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         if genderSC.selectedSegmentIndex == 1 {
             gender = "Female"
         }
-
+        
+        if course.isEmpty {
+            course = pickerData[0]
+        }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         //appDelegate.removeRecords()
