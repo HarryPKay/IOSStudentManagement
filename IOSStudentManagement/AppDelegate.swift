@@ -121,8 +121,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func getPersonInfo () -> String {
-        var info = ""
+    func getStudents () -> [NSManagedObject]? {
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         
@@ -130,29 +130,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fetchRequest: NSFetchRequest<Student> = Student.fetchRequest()
         
         do {
-            //go get the results
-            let searchResults = try getContext().fetch(fetchRequest)
-            
-            //I like to check the size of the returned results!
-            print ("num of results = \(searchResults.count)")
-            
-            //You need to convert to NSManagedObject to use 'for' loops
-            for trans in searchResults as [NSManagedObject] {
-                let studentID = String(trans.value(forKey: "studentID") as! Int)
-                let lName = trans.value(forKey: "lName") as! String
-                let fName = trans.value(forKey: "fName") as! String
-                let gender = trans.value(forKey: "gender") as! String
-                let course = trans.value(forKey: "course") as! String
-                let strDate = dateFormatter.string(from: trans.value(forKey: "dateOfBirth") as! Date)
-                info = info + studentID + ", " + fName + " " + lName + ", " + strDate + " " + gender + " " + course +  "\n"
-            }
+        let searchResults = try getContext().fetch(fetchRequest)
+            return searchResults as [NSManagedObject]?
         } catch {
             print("Error with request: \(error)")
         }
-        return info;
+        
+        return nil
+    }
+    
+    func getStudent(for ID: Int) -> NSManagedObject? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Student")
+        fetchRequest.predicate = NSPredicate(format: "studentID = %ld", ID)
+        
+        do {
+            let searchResults = try getContext().fetch(fetchRequest)
+            return searchResults[0] as? NSManagedObject
+        } catch {
+            print("Error with request: \(error)")
+        }
+        return nil
+    }
+    
+    func removeStudent(for ID: Int) {
+        
+        let context = getContext()
+        
+        if let studentToDelete = getStudent(for: ID) {
+            context.delete(studentToDelete)
+        }
+        
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
+        
+        return
     }
     
     func removeRecords () {
+        
         let context = getContext()
         // delete everything in the table Person
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Student")

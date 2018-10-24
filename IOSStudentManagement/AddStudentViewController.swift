@@ -54,9 +54,10 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         if genderSC.selectedSegmentIndex == 1 {
             gender = "Female"
         }
+
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.removeRecords()
+        //appDelegate.removeRecords()
         appDelegate.storeStudent(studentID: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender)
     }
 }
