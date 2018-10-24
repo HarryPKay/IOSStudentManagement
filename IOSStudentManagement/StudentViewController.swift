@@ -11,13 +11,24 @@ import CoreData
 
 class StudentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource   {
     
+    // Jumps to the page for adding new students.
+    // Optionally will edit students if a student
+    // id is given instead.
+    func jumpToAddStudentView(with studentID: Int?) {
+
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddStudentViewController") as? AddStudentViewController
+        {
+            vc.studentToModifyByID = studentID
+            present(vc, animated: true, completion: nil)
+        }
+    }
+    
     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var editLabel: UIButton!
     
     var isInEditingMode = false;
     var data = [String]()
-    //var data : String
     
     // return the size of the array to tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,7 +54,7 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let strStudentID = data[indexPath.row].split(separator: ",")
         let studentID = Int(strStudentID[0]) ?? -1
         
-        // Retrieve that student's detail and echo it.
+        // Retrieve the student's detail and echo it.
         if studentID == -1 {
             return
         }
@@ -53,6 +64,7 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         formatter.dateFormat = "yyyy-MM-dd"
         let dateOfBirth = formatter.string(from: dateOfBirthDate)
         
+        //TODO: Consider addresses
         let message = "Student ID:\t" + strStudentID[0]
         + "\nFirst Name:\t" + (student?.value(forKey: "fName") as! String)
         + "\nLast Name:\t" + (student?.value(forKey: "lName") as! String)
@@ -63,31 +75,19 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
         
-       //let alertfName = UIAlertController(
-        
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         //TODO: show exams
-        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToAddStudentView() })
+        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToAddStudentView(with: nil) })
         
-        let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToAddStudentView() })
+        let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToAddStudentView(with: studentID)
+        })
         
         alertController.addAction(alertActionAddExam)
         alertController.addAction(alertActionEditStudent)
         alertController.addAction(alertActionCancel)
 
         present(alertController, animated: true, completion: nil)
-        
-        /*let alertController = UIAlertController(title: "Hint", message: "You have selected row \(indexPath.row).", preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        
-        alertController.addTextField { (textField) in
-            textField.text = "Some default text"
-        }
-        
-        alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil) */
- 
     }
     
     // deletes students
@@ -122,17 +122,6 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         flipEditMode();
     }
     
-    func jumpToAddStudentView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "AddStudentViewController")
-        self.present(controller, animated: true, completion: nil)
-        
-        // Safe Present
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddStudentViewController") as? AddStudentViewController
-        {
-            present(vc, animated: true, completion: nil)
-        }
-    }
     
     func flipEditMode() {
         
@@ -146,7 +135,6 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         else {
           editLabel.setTitle("Delete", for: UIControl.State.normal)
             tableView.setEditing(false, animated: true)
-            
         }
     }
     

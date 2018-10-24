@@ -11,6 +11,36 @@ import CoreData
 
 class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    // Is set by StudentViewController when user wishes to edit student information.
+    // Used by this class to get student values, preload fields and to submit updates.
+    var studentToModifyByID: Int?
+    
+    func preloadFields() {
+        if studentToModifyByID == nil {
+            return
+        }
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let student = appDelegate.getStudent(for: studentToModifyByID!)
+        studentIDField.text = String(studentToModifyByID ?? -1)
+        fNameField.text = student?.value(forKey: "fName") as? String
+        lNameField.text = student?.value(forKey: "lName") as? String
+        
+        
+        if (student?.value(forKey: "gender") as! String) == "Male" {
+            genderSC.selectedSegmentIndex = 0;
+        }
+        else {
+            genderSC.selectedSegmentIndex = 1;
+        }
+        
+        let selectedCourse = student?.value(forKey: "course") as! String
+        // Default to the first row if course cannot be determined
+        let indexOfSelectedCourse = pickerData.firstIndex(of: selectedCourse) ?? 0
+        coursePicker.selectRow(indexOfSelectedCourse, inComponent: 0, animated: true)
+        
+        dateOfBirthDP.date = student?.value(forKey: "dateOfBirth") as! Date
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -35,6 +65,7 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         super.viewDidLoad()
         self.coursePicker.dataSource = self
         self.coursePicker.delegate = self
+        preloadFields()
     }
     
     @IBOutlet weak var studentIDField: UITextField!
@@ -44,9 +75,13 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
     @IBOutlet weak var dateOfBirthDP: UIDatePicker!
     @IBOutlet weak var coursePicker: UIPickerView!
     
-
-    @IBAction func touchDone(_ sender: UIBarButtonItem) {
+    @IBAction func touchBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func touchDone(_ sender: UIButton) {
         
+        // Retrieve text from fields that are not text labels
         var gender = ""
         if genderSC.selectedSegmentIndex == 0 {
             gender = "Male"
@@ -55,13 +90,17 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
             gender = "Female"
         }
         
+        // If nothing was selected, ensure that the first item shows up as a selected course
         if course.isEmpty {
             course = pickerData[0]
         }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //appDelegate.removeRecords()
         appDelegate.storeStudent(studentID: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender)
+        
+        if studentToModifyByID != nil {
+            dismiss(animated: true, completion: nil)
+        }
     }
 }
 
