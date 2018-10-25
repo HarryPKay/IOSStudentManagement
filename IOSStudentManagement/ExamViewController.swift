@@ -47,9 +47,16 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadExamsToData()
+        tableView.reloadData()
+    }
+    
     
     @IBAction func touchDelete(_ sender: UIButton) {
         removeCheckedExams()
+        loadExamsToData()
+        tableView.reloadData()
     }
     
     func loadExamsToData() {
@@ -78,11 +85,14 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         for (id, isChecked) in checkBoxState {
+            print(String(id))
             if isChecked {
                 print("Removing Exam for ID" + String(id))
                 appDelegate.removeExam(for: id)
+                checkBoxState[ id] = nil
             }
         }
+        loadView()
     }
     
     @IBAction func checkBox(_ sender: UIButton) {
