@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ModifyStudentViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     // Is set by StudentViewController when user wishes to edit student information.
     // Used by this class to get student values, preload fields and to submit updates.
@@ -69,8 +69,14 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         self.coursePicker.dataSource = self
         self.coursePicker.delegate = self
         preloadFields()
+        
+        if studentToModifyByID == nil {
+            deleteButton.isEnabled = false
+        }
     }
     
+    
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var streetField: UITextField!
     @IBOutlet weak var cityField: UITextField!
     @IBOutlet weak var stateField: UITextField!
@@ -85,6 +91,16 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
     @IBAction func touchBack(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func touchDelete(_ sender: UIButton) {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if let studentToDeleteByID = studentToModifyByID {
+            appDelegate.removeStudent(for: studentToDeleteByID)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     @IBAction func touchDone(_ sender: UIButton) {
         
@@ -111,7 +127,7 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
             appDelegate.updateStudent(for: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender, postCode: postCodeField.text!, state: stateField.text!, city: cityField.text!, street:  streetField.text!)
             dismiss(animated: true, completion: nil)
             
-        // Or be adding new students?
+            // Or be adding new students?
         } else {
             
             appDelegate.storeStudent(for: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender, postCode: postCodeField.text!, state: stateField.text!, city: cityField.text!, street:  streetField.text!)

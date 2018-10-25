@@ -93,6 +93,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return appDelegate.persistentContainer.viewContext
     }
     
+    // TODO have things return entity type instead of NS
+    
+    func createStudentExamMapping(for studentID: Int, for exams: [Exam]) {
+        
+        let context = getContext()
+        let student = getStudent(for: studentID)
+        let s = student as! Student
+        
+        for exam in exams {
+            s.addToExams(exam)
+        }
+        
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
+    }
+    
     func storeStudent (for studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String, postCode: String, state: String, city: String, street: String) {
         
         let context = getContext()

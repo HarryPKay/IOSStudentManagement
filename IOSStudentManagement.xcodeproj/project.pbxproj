@@ -19,6 +19,8 @@
 		9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81034F217C8D6500814C35 /* AddStudentViewController.swift */; };
 		9EBA1A812181A94C0080E11A /* AddExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A802181A94C0080E11A /* AddExamViewController.swift */; };
 		9EBA1A832181B1B00080E11A /* ExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A822181B1B00080E11A /* ExamViewController.swift */; };
+		9EBA1A852181EE550080E11A /* ModifyStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A842181EE550080E11A /* ModifyStudentViewController.swift */; };
+		9EBA1A872181F82B0080E11A /* ExamStudentMappingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A862181F82B0080E11A /* ExamStudentMappingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		9E81034F217C8D6500814C35 /* AddStudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStudentViewController.swift; sourceTree = "<group>"; };
 		9EBA1A802181A94C0080E11A /* AddExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExamViewController.swift; sourceTree = "<group>"; };
 		9EBA1A822181B1B00080E11A /* ExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamViewController.swift; sourceTree = "<group>"; };
+		9EBA1A842181EE550080E11A /* ModifyStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyStudentViewController.swift; sourceTree = "<group>"; };
+		9EBA1A862181F82B0080E11A /* ExamStudentMappingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamStudentMappingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +117,9 @@
 				9E810319217C48EB00814C35 /* ViewController.swift */,
 				9E81034A217C760600814C35 /* StudentViewController.swift */,
 				9E81034F217C8D6500814C35 /* AddStudentViewController.swift */,
+				9EBA1A842181EE550080E11A /* ModifyStudentViewController.swift */,
 				9E81031B217C48EB00814C35 /* Main.storyboard */,
+				9EBA1A862181F82B0080E11A /* ExamStudentMappingViewController.swift */,
 				9E810321217C48F000814C35 /* Assets.xcassets */,
 				9E810323217C48F000814C35 /* LaunchScreen.storyboard */,
 				9E810326217C48F000814C35 /* Info.plist */,
@@ -271,12 +277,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EBA1A872181F82B0080E11A /* ExamStudentMappingViewController.swift in Sources */,
 				9E81031A217C48EB00814C35 /* ViewController.swift in Sources */,
 				9E81034B217C760600814C35 /* StudentViewController.swift in Sources */,
 				9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */,
 				9EBA1A832181B1B00080E11A /* ExamViewController.swift in Sources */,
 				9E810320217C48EB00814C35 /* IOSStudentManagement.xcdatamodeld in Sources */,
 				9E810318217C48EB00814C35 /* AppDelegate.swift in Sources */,
+				9EBA1A852181EE550080E11A /* ModifyStudentViewController.swift in Sources */,
 				9EBA1A812181A94C0080E11A /* AddExamViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,7 +6,7 @@
         <attribute name="examID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="attendees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="attends" inverseEntity="Student" syncable="YES"/>
+        <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="exams" inverseEntity="Student" syncable="YES"/>
     </entity>
     <entity name="Student" representedClassName="Student" syncable="YES" codeGenerationType="class">
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,7 +19,7 @@
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="studentID" optional="YES" attributeType="Integer 16" minValueString="1" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="attends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exam" inverseName="attendees" inverseEntity="Exam" syncable="YES"/>
+        <relationship name="exams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exam" inverseName="students" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <elements>
         <element name="Exam" positionX="158.3203125" positionY="22.64453125" width="128" height="135"/>

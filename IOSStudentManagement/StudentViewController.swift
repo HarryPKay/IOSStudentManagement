@@ -14,11 +14,19 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
     // Jumps to the page for adding new students.
     // Optionally will edit students if a student
     // id is given instead.
-    func jumpToAddStudentView(with studentID: Int?) {
+    func jumpToModifyStudentView(with studentID: Int?) {
 
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddStudentViewController") as? AddStudentViewController
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ModifyStudentViewController") as? ModifyStudentViewController
         {
             vc.studentToModifyByID = studentID
+            present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func jumpToExamStudentMappingView(with studentID: Int?) {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ExamStudentMappingViewController") as? ExamStudentMappingViewController
+        {
+            vc.studentID = studentID
             present(vc, animated: true, completion: nil)
         }
     }
@@ -59,6 +67,7 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         let student = appDelegate.getStudent(for: studentID)
+        
         let dateOfBirthDate = student?.value(forKey: "dateOfBirth") as! Date
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -77,14 +86,13 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             + " " + (student?.value(forKey: "postCode") as! String)
         let message = studentDetails + studentAddress
         
-        
         let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
         
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToAddStudentView(with: nil) })
-        let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToAddStudentView(with: nil) })
-        let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToAddStudentView(with: studentID)
+        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID) })
+        let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToModifyStudentView(with: nil) })
+        let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToModifyStudentView(with: studentID)
         })
         
         alertController.addAction(alertActionAddExam)
