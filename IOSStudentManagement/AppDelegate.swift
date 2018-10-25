@@ -94,11 +94,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func storeStudent (for studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String, postCode: String, state: String, city: String, street: String) {
-        let context = getContext()
         
+        let context = getContext()
         //retrieve the entity that we just created
         let entity =  NSEntityDescription.entity(forEntityName: "Student", in: context)
-        
         let student = NSManagedObject(entity: entity!, insertInto: context)
         
         //set the entity values
@@ -112,6 +111,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         student.setValue(state, forKey: "state")
         student.setValue(street, forKey: "street")
         student.setValue(city, forKey: "city")
+        
+        //save the object
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
+    }
+    
+    func storeExam(for examID: Int, title: String, examDescription: String, location: String, date: Date) {
+        
+        //retrieve the entity that we just created
+        let context = getContext()
+        let entity =  NSEntityDescription.entity(forEntityName: "Exam", in: context)
+        let exam = NSManagedObject(entity: entity!, insertInto: context)
+        
+        exam.setValue(examID, forKey: "examID")
+        exam.setValue(title, forKey: "title")
+        exam.setValue(examDescription, forKey: "examDescription")
+        exam.setValue(location, forKey: "location")
+        exam.setValue(date, forKey: "date")
         
         //save the object
         do {
@@ -142,6 +165,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     
+    func getExams () -> [NSManagedObject]? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        //create a fetch request, telling it about the entity
+        let fetchRequest: NSFetchRequest<Exam> = Exam.fetchRequest()
+        
+        do {
+            let searchResults = try getContext().fetch(fetchRequest)
+            return searchResults as [NSManagedObject]?
+        } catch {
+            print("Error with request: \(error)")
+        }
+        
+        return nil
+    }
+    
     func getStudent(for ID: Int) -> NSManagedObject? {
         
         let dateFormatter = DateFormatter()
@@ -157,6 +198,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error with request: \(error)")
         }
         return nil
+    }
+    
+    func getExam(for ID: Int) -> NSManagedObject? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Exam")
+        fetchRequest.predicate = NSPredicate(format: "examID = %ld", ID)
+        
+        do {
+            let searchResults = try getContext().fetch(fetchRequest)
+            return searchResults[0] as? NSManagedObject
+        } catch {
+            print("Error with request: \(error)")
+        }
+        return nil
+    }
+    
+    func updateExam(for examID: Int, title: String, examDescription: String, location: String, date: Date) {
+        
+        //retrieve the entity that we just created
+        let context = getContext()
+        
+        // Get the exam by ID and then set it's values
+        // examID should never change.
+        if let exam = getExam(for: examID) {
+            exam.setValue(examID, forKey: "examID")
+            exam.setValue(title, forKey: "title")
+            exam.setValue(examDescription, forKey: "examDescription")
+            exam.setValue(location, forKey: "location")
+            exam.setValue(date, forKey: "date")
+        }
+        
+        // Attempt to update with new values
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
     }
     
     func updateStudent(for studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String, postCode: String, state: String, city: String, street: String) {
@@ -208,7 +292,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return
     }
     
-    func removeRecords () {
+    func removeExam(for ID: Int) {
+        
+        let context = getContext()
+        
+        if let examToDelete = getExam(for: ID) {
+            context.delete(examToDelete)
+        }
+        
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
+        
+        return
+    }
+    
+    /*func removeRecords () {
         
         let context = getContext()
         // delete everything in the table Person
@@ -221,7 +325,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print ("There was an error")
         }
-    }
-
+    }*/
 }
 

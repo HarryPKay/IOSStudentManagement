@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="912.79999999999995" y="1061.9190404797603"/>
         </scene>
-        <!--Exam-->
+        <!--Exams-->
         <scene sceneID="pxL-Ow-rMj">
             <objects>
-                <viewController id="tc6-lE-UcI" sceneMemberID="viewController">
+                <viewController restorationIdentifier="ExamViewController" storyboardIdentifier="ExamViewController" id="tc6-lE-UcI" customClass="ExamViewController" customModule="IOSStudentManagement" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="psr-eC-dUt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,6 +94,9 @@
                                 <rect key="frame" x="17" y="20" width="45" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="touchDelete:" destination="tc6-lE-UcI" eventType="touchUpInside" id="nCl-Aj-mkN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Cv-f3-uvs">
                                 <rect key="frame" x="313" y="20" width="46" height="30"/>
@@ -122,9 +125,24 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E5t-UG-H9f" id="CYM-G5-v7Y">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yp-ic-fQq">
+                                                    <rect key="frame" x="279" y="4" width="41" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="baseline_check_box_outline_blank_black_36pt_1x"/>
+                                                    <state key="selected" image="baseline_check_box_black_36pt_1x"/>
+                                                    <connections>
+                                                        <action selector="checkBox:" destination="tc6-lE-UcI" eventType="touchUpInside" id="eYg-x2-gci"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="tc6-lE-UcI" id="Qky-DS-OTM"/>
+                                    <outlet property="delegate" destination="tc6-lE-UcI" id="EhL-k7-zZp"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exams:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXg-Xd-Spk">
                                 <rect key="frame" x="16" y="58" width="55" height="21"/>
@@ -137,7 +155,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="0oz-9o-Tpl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Exam" image="baseline_school_black_36pt_1x" id="Zjn-JB-7ct"/>
+                    <tabBarItem key="tabBarItem" title="Exams" image="baseline_school_black_36pt_1x" id="Zjn-JB-7ct"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="V5l-ee-pR1" id="pax-nx-CYv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bCF-wh-fqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -416,10 +438,25 @@
             </objects>
             <point key="canvasLocation" x="2008.8" y="1061.9190404797603"/>
         </scene>
-        <!--View Controller-->
+        <!--ModifyStudentViewController-->
+        <scene sceneID="e6D-Fj-The">
+            <objects>
+                <viewController title="ModifyStudentViewController" id="g34-ik-D4a" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OwC-H4-LvY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="U2i-yN-C8Q"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1gC-0G-5nY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2009" y="394"/>
+        </scene>
+        <!--AddExamViewController-->
         <scene sceneID="q5O-Pm-94K">
             <objects>
-                <viewController id="Km4-qC-ltK" sceneMemberID="viewController">
+                <viewController restorationIdentifier="AddExamViewController" storyboardIdentifier="AddExamViewController" title="AddExamViewController" id="Km4-qC-ltK" customClass="AddExamViewController" customModule="IOSStudentManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZqC-7c-iPV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -428,11 +465,17 @@
                                 <rect key="frame" x="22" y="20" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="touchBack:" destination="Km4-qC-ltK" eventType="touchUpInside" id="H1A-7u-cfa"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPg-ES-ARn">
                                 <rect key="frame" x="313" y="20" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="touchDone:" destination="Km4-qC-ltK" eventType="touchUpInside" id="130-dc-wN1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dhj-5G-1Nv">
                                 <rect key="frame" x="167" y="20" width="41" height="30"/>
@@ -442,17 +485,82 @@
                                     <segue destination="04G-ME-BCM" kind="show" id="Hka-WN-ZQ5"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exam ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4M6-zY-jO0">
+                                <rect key="frame" x="16" y="87" width="109" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exam Details:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UF0-Cs-SFy">
+                                <rect key="frame" x="22" y="58" width="103" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.35566986239999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exam Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4z-EO-wN5">
+                                <rect key="frame" x="16" y="201" width="134" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.35566986239999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exam Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwW-9D-3KU">
+                                <rect key="frame" x="16" y="366" width="82" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.35566986239999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exam Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0m2-bl-9yU">
+                                <rect key="frame" x="16" y="125" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Exam Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VW6-35-TON">
+                                <rect key="frame" x="16" y="163" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CSQ-fz-Gio">
+                                <rect key="frame" x="16" y="230" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XkO-Mt-7M9">
+                                <rect key="frame" x="0.0" y="395" width="375" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="562145372.93832195">
+                                    <!--2018-10-25 07:29:32 +0000-->
+                                </date>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="GA9-16-rA5"/>
                     </view>
+                    <connections>
+                        <outlet property="examDatePicker" destination="XkO-Mt-7M9" id="33M-QC-9Lz"/>
+                        <outlet property="examDescriptionField" destination="CSQ-fz-Gio" id="PZm-np-dhW"/>
+                        <outlet property="examIDField" destination="4M6-zY-jO0" id="WEE-yj-vXz"/>
+                        <outlet property="locationField" destination="VW6-35-TON" id="iGS-l7-twm"/>
+                        <outlet property="titleField" destination="0m2-bl-9yU" id="fyc-hB-XT9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pal-RA-F0Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2009" y="1746"/>
+            <point key="canvasLocation" x="2008.8" y="1745.577211394303"/>
         </scene>
     </scenes>
     <resources>
+        <image name="baseline_check_box_black_36pt_1x" width="36" height="36"/>
+        <image name="baseline_check_box_outline_blank_black_36pt_1x" width="36" height="36"/>
         <image name="baseline_face_black_36pt_1x" width="36" height="36"/>
         <image name="baseline_face_white_48dp" width="96" height="96"/>
         <image name="baseline_map_black_36pt_1x" width="36" height="36"/>
@@ -463,7 +571,7 @@
         <image name="vector" width="794" height="553"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ilw-S3-MO9"/>
-        <segue reference="cwK-Vc-YRV"/>
+        <segue reference="hJJ-xe-u5d"/>
+        <segue reference="PBg-5S-eca"/>
     </inferredMetricsTieBreakers>
 </document>

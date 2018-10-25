@@ -17,6 +17,8 @@
 		9E81033B217C48F000814C35 /* IOSStudentManagementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81033A217C48F000814C35 /* IOSStudentManagementUITests.swift */; };
 		9E81034B217C760600814C35 /* StudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81034A217C760600814C35 /* StudentViewController.swift */; };
 		9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81034F217C8D6500814C35 /* AddStudentViewController.swift */; };
+		9EBA1A812181A94C0080E11A /* AddExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A802181A94C0080E11A /* AddExamViewController.swift */; };
+		9EBA1A832181B1B00080E11A /* ExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A822181B1B00080E11A /* ExamViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		9E81033C217C48F000814C35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E81034A217C760600814C35 /* StudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentViewController.swift; sourceTree = "<group>"; };
 		9E81034F217C8D6500814C35 /* AddStudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStudentViewController.swift; sourceTree = "<group>"; };
+		9EBA1A802181A94C0080E11A /* AddExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExamViewController.swift; sourceTree = "<group>"; };
+		9EBA1A822181B1B00080E11A /* ExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 		9E810316217C48EB00814C35 /* IOSStudentManagement */ = {
 			isa = PBXGroup;
 			children = (
+				9EBA1A802181A94C0080E11A /* AddExamViewController.swift */,
+				9EBA1A822181B1B00080E11A /* ExamViewController.swift */,
 				9E810317217C48EB00814C35 /* AppDelegate.swift */,
 				9E810319217C48EB00814C35 /* ViewController.swift */,
 				9E81034A217C760600814C35 /* StudentViewController.swift */,
@@ -268,8 +274,10 @@
 				9E81031A217C48EB00814C35 /* ViewController.swift in Sources */,
 				9E81034B217C760600814C35 /* StudentViewController.swift in Sources */,
 				9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */,
+				9EBA1A832181B1B00080E11A /* ExamViewController.swift in Sources */,
 				9E810320217C48EB00814C35 /* IOSStudentManagement.xcdatamodeld in Sources */,
 				9E810318217C48EB00814C35 /* AppDelegate.swift in Sources */,
+				9EBA1A812181A94C0080E11A /* AddExamViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
