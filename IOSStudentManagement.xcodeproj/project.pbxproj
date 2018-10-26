@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E810318217C48EB00814C35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810317217C48EB00814C35 /* AppDelegate.swift */; };
-		9E81031A217C48EB00814C35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810319217C48EB00814C35 /* ViewController.swift */; };
+		9E81031A217C48EB00814C35 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810319217C48EB00814C35 /* HomeViewController.swift */; };
 		9E81031D217C48EB00814C35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E81031B217C48EB00814C35 /* Main.storyboard */; };
 		9E810320217C48EB00814C35 /* IOSStudentManagement.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E81031E217C48EB00814C35 /* IOSStudentManagement.xcdatamodeld */; };
 		9E810322217C48F000814C35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E810321217C48F000814C35 /* Assets.xcassets */; };
@@ -43,7 +43,7 @@
 /* Begin PBXFileReference section */
 		9E810314217C48EB00814C35 /* IOSStudentManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSStudentManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E810317217C48EB00814C35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E810319217C48EB00814C35 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9E810319217C48EB00814C35 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9E81031C217C48EB00814C35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E81031F217C48EB00814C35 /* IOSStudentManagement.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IOSStudentManagement.xcdatamodel; sourceTree = "<group>"; };
 		9E810321217C48F000814C35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				9EBA1A802181A94C0080E11A /* AddExamViewController.swift */,
 				9EBA1A822181B1B00080E11A /* ExamViewController.swift */,
 				9E810317217C48EB00814C35 /* AppDelegate.swift */,
-				9E810319217C48EB00814C35 /* ViewController.swift */,
+				9E810319217C48EB00814C35 /* HomeViewController.swift */,
 				9E81034A217C760600814C35 /* StudentViewController.swift */,
 				9E81034F217C8D6500814C35 /* AddStudentViewController.swift */,
 				9EBA1A842181EE550080E11A /* ModifyStudentViewController.swift */,
@@ -278,7 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EBA1A872181F82B0080E11A /* ExamStudentMappingViewController.swift in Sources */,
-				9E81031A217C48EB00814C35 /* ViewController.swift in Sources */,
+				9E81031A217C48EB00814C35 /* HomeViewController.swift in Sources */,
 				9E81034B217C760600814C35 /* StudentViewController.swift in Sources */,
 				9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */,
 				9EBA1A832181B1B00080E11A /* ExamViewController.swift in Sources */,

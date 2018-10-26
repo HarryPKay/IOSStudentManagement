@@ -23,10 +23,12 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func jumpToExamStudentMappingView(with studentID: Int?) {
+    func jumpToExamStudentMappingView(with studentID: Int, isRemovingMapping: Bool) {
+        
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ExamStudentMappingViewController") as? ExamStudentMappingViewController
         {
             vc.studentID = studentID
+            vc.isRemovingMapping = isRemovingMapping
             present(vc, animated: true, completion: nil)
         }
     }
@@ -89,13 +91,14 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
         
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID) })
+        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: false) })
+        let alertActionRemoveExam = UIAlertAction(title: "Remove Exam", style: .destructive, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: true) })
         let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToModifyStudentView(with: nil) })
         let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToModifyStudentView(with: studentID)
         })
         
         alertController.addAction(alertActionAddExam)
+        alertController.addAction(alertActionRemoveExam)
         alertController.addAction(alertActionEditStudent)
         alertController.addAction(alertActionShowOnMap)
         alertController.addAction(alertActionCancel)
