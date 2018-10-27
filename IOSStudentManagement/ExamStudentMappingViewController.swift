@@ -50,6 +50,14 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
             } else {
                 flagLabel.text = "Flag: Past Exam"
             }
+            
+            let isAssignedLabel = cell.contentView.viewWithTag(10006) as! UILabel
+            let student = appDelegate.getStudent(for: studentID!)
+            if appDelegate.doesRelationshipExist(student: student!, exam: exam) {
+                isAssignedLabel.text = "Assigned"
+            } else {
+                isAssignedLabel.text = ""
+            }
         }
         
         if let selected = cell.viewWithTag(1) as? UIButton {
@@ -77,17 +85,8 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isRemovingMapping {
-            taskReminderLabel.text = "Removing Exam from Student"
-        }
-        else {
-            taskReminderLabel.text = "Assigning Exam to Student"
-        }
-        
         loadExamsToData()
         tableView.reloadData()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,14 +96,46 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func touchDone(_ sender: UIButton) {
-        
+    @IBAction func touchDeassign(_ sender: UIButton) {
+        deassignExamToStudent()
+        loadView()
+    }
+    
+    @IBAction func touchAssign(_ sender: UIButton) {
+        assignExamToStudent()
+        loadView()
+    }
+    
+    func assignExamToStudent() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        var exams = [Exam]()
-        let exam = appDelegate.getExam(for: 1) as! Exam
-        exams.append(exam)
-        appDelegate.createStudentExamMapping(for: studentID!, for: exams)
+        for (id, isChecked) in checkBoxState {
+            print(String(id))
+            if isChecked {
+                print("Assigning Exam for ID " + String(id) + " to student ID " + String(studentID!))
+                let exam = appDelegate.getExam(for: id)!
+                var exams = [Exam]()
+                exams.append(exam)
+                appDelegate.createStudentExamMapping(for: studentID!, for: exams)
+                checkBoxState[id] = false
+            }
+        }
+    }
+    
+    func deassignExamToStudent() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        for (id, isChecked) in checkBoxState {
+            print(String(id))
+            if isChecked {
+                print("Deassigning Exam for ID " + String(id) + " to student ID " + String(studentID!))
+                let exam = appDelegate.getExam(for: id)!
+                var exams = [Exam]()
+                exams.append(exam)
+                appDelegate.removeStudentExamMapping(for: studentID!, for: exams)
+                checkBoxState[id] = false
+            }
+        }
     }
     
     func loadExamsToData() {
@@ -132,6 +163,5 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
     @IBAction func checkBox(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         checkBoxState[sender.tag] = sender.isSelected
-        
     }
 }

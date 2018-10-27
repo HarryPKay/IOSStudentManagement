@@ -93,7 +93,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return appDelegate.persistentContainer.viewContext
     }
     
-    // TODO have things return entity type instead of NS
+    func doesRelationshipExist(student: Student, exam: Exam) -> Bool {
+        let exams = student.exams?.allObjects as! [Exam]
+        for e in exams {
+            if e.examID == exam.examID {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func removeStudentExamMapping(for studentID: Int, for exams: [Exam]) {
+        let context = getContext()
+        let student = getStudent(for: studentID)!
+        
+        for exam in exams {
+            student.removeFromExams(exam)
+        }
+        
+        do {
+            try context.save()
+            print("saved!")
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            
+        }
+    }
     
     func createStudentExamMapping(for studentID: Int, for exams: [Exam]) {
         

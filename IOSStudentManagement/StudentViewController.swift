@@ -23,12 +23,11 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func jumpToExamStudentMappingView(with studentID: Int, isRemovingMapping: Bool) {
+    func jumpToExamStudentMappingView(with studentID: Int) {
         
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ExamStudentMappingViewController") as? ExamStudentMappingViewController
         {
             vc.studentID = studentID
-            vc.isRemovingMapping = isRemovingMapping
             present(vc, animated: true, completion: nil)
         }
     }
@@ -84,7 +83,6 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             + "\nGender: " + student.gender!
             + "\ndateOfBirth: " + dateOfBirth
             + "\n\ncourse:\n" + student.course!
-        
         // Retrieve student's address
         let studentAddress = "\n\naddress:\n" + student.street!
             + " " + student.city!
@@ -92,24 +90,18 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             + " " + student.postCode!
         let message = studentDetails + studentAddress
         
+        // Create the alert to show information and provide additional options.
         let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
-        
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let alertActionAddExam = UIAlertAction(title: "Assign Exam", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: false) })
-        let alertActionRemoveExam = UIAlertAction(title: "Deassign Exam", style: .destructive, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: true) })
+        let alertActionExamManipulation = UIAlertAction(title: "Exam Manipulation", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID) })
         let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToModifyStudentView(with: nil) })
-        let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToModifyStudentView(with: studentID)
-        })
-        
+        let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToModifyStudentView(with: studentID)})
         let alertActionRemoveStudent = UIAlertAction(title: "Remove Student", style: .destructive, handler: {
             action in appDelegate.removeStudent(for: studentID)
             self.loadStudentsToData()
-            self.tableView.reloadData()
-        })
+            self.tableView.reloadData() })
         
-        
-        alertController.addAction(alertActionAddExam)
-        alertController.addAction(alertActionRemoveExam)
+        alertController.addAction(alertActionExamManipulation)
         alertController.addAction(alertActionEditStudent)
         alertController.addAction(alertActionRemoveStudent)
         alertController.addAction(alertActionShowOnMap)

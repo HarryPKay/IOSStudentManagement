@@ -111,7 +111,6 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func removeCheckedExams() {
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         for (id, isChecked) in checkBoxState {
