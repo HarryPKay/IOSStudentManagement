@@ -258,18 +258,55 @@
         <!--Maps-->
         <scene sceneID="bLe-UB-f64">
             <objects>
-                <viewController id="gD8-Iz-igf" sceneMemberID="viewController">
+                <viewController restorationIdentifier="MapViewController" storyboardIdentifier="MapViewController" id="gD8-Iz-igf" customClass="MapViewController" customModule="IOSStudentManagement" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ivc-gb-GPh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-Vy-xM0">
+                                <rect key="frame" x="0.0" y="58" width="375" height="560"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gD8-Iz-igf" id="8C2-Sv-L5E"/>
+                                </connections>
+                            </mapView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mxs-gQ-C15">
+                                <rect key="frame" x="0.0" y="58" width="375" height="560"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gD8-Iz-igf" id="4lI-tg-6zC"/>
+                                </connections>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Viv-z0-cVQ">
+                                <rect key="frame" x="316" y="20" width="41" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Home"/>
+                                <connections>
+                                    <segue destination="04G-ME-BCM" kind="show" id="hEy-4b-pus"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5D7-5l-GH3">
+                                <rect key="frame" x="16" y="20" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="touchBack:" destination="gD8-Iz-igf" eventType="touchUpInside" id="S4H-8r-piA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mLD-NK-Ydb"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Maps" image="baseline_map_black_36pt_1x" id="3Qc-vV-ICg"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="backButton" destination="5D7-5l-GH3" id="f3Q-D3-uAg"/>
+                        <outlet property="map" destination="mxs-gQ-C15" id="NVC-Ag-DdC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68O-AD-FF2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="907" y="2417"/>
+            <point key="canvasLocation" x="906.39999999999998" y="2416.6416791604202"/>
         </scene>
         <!--Home-->
         <scene sceneID="wZ2-Yy-FLa">
@@ -343,7 +380,7 @@
                                     <constraint firstItem="kiZ-CN-huY" firstAttribute="centerY" secondItem="Vu0-RO-TWg" secondAttribute="centerY" id="mIv-M2-EIz"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Exams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOc-5j-fNp">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOc-5j-fNp">
                                 <rect key="frame" x="237" y="189" width="82" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="highlightedColor"/>
@@ -358,7 +395,7 @@
                         <constraints>
                             <constraint firstItem="BW6-TH-fsn" firstAttribute="top" secondItem="LaU-uI-Zln" secondAttribute="top" id="17n-Fn-Rsc"/>
                             <constraint firstItem="BW6-TH-fsn" firstAttribute="leading" secondItem="oiD-of-sUD" secondAttribute="leading" id="2NM-EJ-i8w"/>
-                            <constraint firstItem="LaU-uI-Zln" firstAttribute="trailing" secondItem="rOc-5j-fNp" secondAttribute="trailing" constant="70" id="8yF-Tq-OLQ"/>
+                            <constraint firstItem="LaU-uI-Zln" firstAttribute="trailing" secondItem="rOc-5j-fNp" secondAttribute="trailing" constant="56" id="8yF-Tq-OLQ"/>
                             <constraint firstItem="Vu0-RO-TWg" firstAttribute="centerY" secondItem="oiD-of-sUD" secondAttribute="centerY" id="9xA-z9-BqM"/>
                             <constraint firstItem="rOc-5j-fNp" firstAttribute="leading" secondItem="Et7-uh-DjT" secondAttribute="trailing" constant="88" id="BDX-98-Agm"/>
                             <constraint firstItem="Iq6-FW-nel" firstAttribute="leading" secondItem="CEQ-Z4-tHb" secondAttribute="trailing" constant="72" id="DdP-i1-pBI"/>
@@ -371,7 +408,7 @@
                             <constraint firstItem="BW6-TH-fsn" firstAttribute="centerX" secondItem="Vu0-RO-TWg" secondAttribute="centerX" id="Sua-Q2-b7x"/>
                             <constraint firstAttribute="trailing" secondItem="BW6-TH-fsn" secondAttribute="trailing" id="TU4-t8-PlQ"/>
                             <constraint firstItem="Et7-uh-DjT" firstAttribute="top" secondItem="CEQ-Z4-tHb" secondAttribute="bottom" constant="8" symbolic="YES" id="VJu-9F-L9F"/>
-                            <constraint firstItem="Iq6-FW-nel" firstAttribute="centerX" secondItem="rOc-5j-fNp" secondAttribute="centerX" id="cHs-TU-97m"/>
+                            <constraint firstItem="Iq6-FW-nel" firstAttribute="centerX" secondItem="rOc-5j-fNp" secondAttribute="centerX" constant="-7" id="cHs-TU-97m"/>
                             <constraint firstItem="LaU-uI-Zln" firstAttribute="bottom" secondItem="7CG-e3-0JL" secondAttribute="bottom" constant="200" id="dAW-JF-Jg7"/>
                             <constraint firstItem="Et7-uh-DjT" firstAttribute="baseline" secondItem="rOc-5j-fNp" secondAttribute="baseline" id="rg0-Sb-jy5"/>
                             <constraint firstItem="Vu0-RO-TWg" firstAttribute="top" secondItem="Et7-uh-DjT" secondAttribute="bottom" constant="67" id="syN-iz-G4d"/>
@@ -929,9 +966,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFL-hN-HQq">
                                         <rect key="frame" x="226" y="20" width="45" height="30"/>
                                         <state key="normal" title="Delete"/>
-                                        <connections>
-                                            <action selector="touchDelete:" destination="g34-ik-D4a" eventType="touchUpInside" id="FBJ-xa-1Un"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1002,6 +1036,7 @@
                         <outlet property="cityField" destination="LDc-du-cV6" id="zeb-7Z-TpV"/>
                         <outlet property="coursePicker" destination="aQp-Xb-lLe" id="beB-9j-mN4"/>
                         <outlet property="dateOfBirthDP" destination="Bpy-U1-RBr" id="hk7-Qf-UO3"/>
+                        <outlet property="deleteButton" destination="yFL-hN-HQq" id="df1-MC-tJX"/>
                         <outlet property="fNameField" destination="BTX-3o-Y8p" id="nyN-0r-nNQ"/>
                         <outlet property="genderSC" destination="leH-qg-Gak" id="pkT-N4-rIV"/>
                         <outlet property="lNameField" destination="Ynd-hM-8L3" id="4nW-zb-jB7"/>
@@ -1171,7 +1206,7 @@
         <image name="vector" width="794" height="553"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="F1n-yc-zVf"/>
-        <segue reference="VbX-cy-yQQ"/>
+        <segue reference="iVr-4j-Gp7"/>
+        <segue reference="0cB-qP-V3z"/>
     </inferredMetricsTieBreakers>
 </document>

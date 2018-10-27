@@ -9,7 +9,18 @@
 import UIKit
 import CoreData
 
+// Provides the interface to allow the user to view and delete students. Provide navigation to
+// assign exams to student and show student's address on map
 class StudentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource   {
+    
+    
+    @IBAction func editButton(_ sender: UIButton) {
+        flipEditMode();
+    }
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var editLabel: UIButton!
     
     // Jumps to the page for adding new students.
     // Optionally will edit students if a student
@@ -32,9 +43,43 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @IBOutlet weak var tableView: UITableView!
-
-    @IBOutlet weak var editLabel: UIButton!
+    func jumpToMapViewController(with address: String) {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as? MapViewController
+        {
+            vc.address = address
+            present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func flipEditMode() {
+        
+        isInEditingMode = !isInEditingMode
+        
+        // If we are editing, show label for finishing
+        if isInEditingMode {
+            editLabel.setTitle("Done", for: UIControl.State.normal)
+            tableView.setEditing(true, animated: true)
+        }
+        else {
+            editLabel.setTitle("Delete", for: UIControl.State.normal)
+            tableView.setEditing(false, animated: true)
+        }
+    }
+    
+    // Gets all students and puts their data into the data array
+    // studentID, fName and lName.
+    func loadStudentsToData() {
+        
+        data.removeAll()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if let students = appDelegate.getStudents() {
+            for student in students {
+                data.append(String(student.studentID))
+            }
+        }
+    }
     
     var isInEditingMode = false;
     var data = [String]()
@@ -82,19 +127,20 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
             + "\nLast Name: " + student.lName!
             + "\nGender: " + student.gender!
             + "\ndateOfBirth: " + dateOfBirth
-            + "\n\ncourse:\n" + student.course!
+            + "\n\nCourse:\n" + student.course!
+            + "\n\nAddress:\n"
         // Retrieve student's address
-        let studentAddress = "\n\naddress:\n" + student.street!
-            + " " + student.city!
-            + " " + student.state!
-            + " " + student.postCode!
+        let studentAddress = student.street!
+            + ", " + student.city!
+            + ", " + student.state!
+            + ", " + student.postCode!
         let message = studentDetails + studentAddress
         
         // Create the alert to show information and provide additional options.
         let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let alertActionExamManipulation = UIAlertAction(title: "Exam Manipulation", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID) })
-        let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToModifyStudentView(with: nil) })
+        let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToMapViewController(with: studentAddress)})
         let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToModifyStudentView(with: studentID)})
         let alertActionRemoveStudent = UIAlertAction(title: "Remove Student", style: .destructive, handler: {
             action in appDelegate.removeStudent(for: studentID)
@@ -139,40 +185,6 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         loadStudentsToData()
         tableView.reloadData()
-    }
-
-    @IBAction func editButton(_ sender: UIButton) {
-        flipEditMode();
-    }
-    
-    func flipEditMode() {
-        
-        isInEditingMode = !isInEditingMode
-        
-        // If we are editing, show label for finishing
-        if isInEditingMode {
-            editLabel.setTitle("Done", for: UIControl.State.normal)
-            tableView.setEditing(true, animated: true)
-        }
-        else {
-          editLabel.setTitle("Delete", for: UIControl.State.normal)
-            tableView.setEditing(false, animated: true)
-        }
-    }
-    
-    // Gets all students and puts their data into the data array
-    // studentID, fName and lName.
-    func loadStudentsToData() {
-        
-        data.removeAll()
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        if let students = appDelegate.getStudents() {
-            for student in students {
-                data.append(String(student.studentID))
-            }
-        }
     }
 }
 

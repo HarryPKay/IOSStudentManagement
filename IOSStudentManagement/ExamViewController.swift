@@ -10,11 +10,27 @@ import Foundation
 import UIKit
 import CoreData
 
+// Allows the user to view, remove exams and navigate to a page to add new exams.
 class ExamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
+    // Flip the state of the switch when clicked.
+    @IBAction func checkBox(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        checkBoxState[sender.tag] = sender.isSelected
+    }
+    
+    @IBAction func touchDelete(_ sender: UIButton) {
+        removeCheckedExams()
+        loadExamsToData()
+        tableView.reloadData()
+    }
+    
+    // Stores the ID's of exams that should be loaded into the table view
     var data = [String]()
+    
+    // Stores the state of the checkbox for it's corresponding examID
     var checkBoxState = [Int: Bool]()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,6 +45,7 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "examCell", for: indexPath)
         let examID = Int(data[indexPath.row]) ?? 0
         
+        // Get exam details and put them into their corresponding labels
         if let exam = appDelegate.getExam(for: examID) {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
@@ -42,16 +59,18 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
             locationLabel.text = exam.location
             let flagLabel = cell.contentView.viewWithTag(10005) as! UILabel
             
-            // Determine if exam has past.
+            // Determine if exam has past, due today or upcomming and.
             if Calendar.current.isDate(Date(), inSameDayAs: exam.date!) {
-                flagLabel.text = "Flag: Exam Happens Today"
+                flagLabel.text = "Flag: TODAY"
             } else if exam.date! > Date() {
-                flagLabel.text = "Flag: Upcomming Exam"
+                flagLabel.text = "Flag: UPCOMMING"
             } else {
-                flagLabel.text = "Flag: Past Exam"
+                flagLabel.text = "Flag: PAST"
             }
         }
         
+        // Assign ID to the tag that corresponds to this cell's checkbox so we
+        // can determine which checkbox is checked and for which ID's to delete.
         if let selected = cell.viewWithTag(1) as? UIButton {
             checkBoxState[examID] = false
             selected.tag = examID
@@ -60,6 +79,7 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell;
     }
     
+    // Show additional details upon clicking an exam.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -77,7 +97,6 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         loadExamsToData()
         tableView.reloadData()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,15 +104,9 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.reloadData()
     }
     
-    
-    @IBAction func touchDelete(_ sender: UIButton) {
-        removeCheckedExams()
-        loadExamsToData()
-        tableView.reloadData()
-    }
-    
+    // Retrieve exam IDs and put them into the data array.
     func loadExamsToData() {
-        
+        // Ensure that old data is removed
         data.removeAll()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -110,22 +123,17 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    // For all checkbox's checked, rempove the corresponding exams by examID
     func removeCheckedExams() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         for (id, isChecked) in checkBoxState {
-            print(String(id))
             if isChecked {
-                print("Removing Exam for ID" + String(id))
+                print("Removing Exam for ID " + String(id))
                 appDelegate.removeExam(for: id)
-                checkBoxState[ id] = nil
+                checkBoxState[id] = nil
             }
         }
         loadView()
-    }
-    
-    @IBAction func checkBox(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        checkBoxState[sender.tag] = sender.isSelected
     }
 }

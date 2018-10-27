@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// Changes which tab is viewed based on which button is pressed.
 class HomeViewController: UIViewController {
 
     override func viewDidLoad() {

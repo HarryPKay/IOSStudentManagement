@@ -10,7 +10,42 @@ import Foundation
 import UIKit
 import CoreData
 
+// Allows assigning/deassigning exams to a student. Also provides navigation to a page to add additional exams.
 class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var taskReminderLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadExamsToData()
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadExamsToData()
+        tableView.reloadData()
+    }
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBAction func touchDeassign(_ sender: UIButton) {
+        deassignExamToStudent()
+        loadView()
+    }
+    
+    @IBAction func touchAssign(_ sender: UIButton) {
+        assignExamToStudent()
+        loadView()
+    }
+    
+    @IBAction func touchBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func checkBox(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        checkBoxState[sender.tag] = sender.isSelected
+    }
     
     var data = [String]()
     var checkBoxState = [Int: Bool]()
@@ -51,6 +86,7 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
                 flagLabel.text = "Flag: Past Exam"
             }
             
+            // Determine if student is already assigned to the exam and display accordingly.
             let isAssignedLabel = cell.contentView.viewWithTag(10006) as! UILabel
             let student = appDelegate.getStudent(for: studentID!)
             if appDelegate.doesRelationshipExist(student: student!, exam: exam) {
@@ -60,6 +96,7 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
             }
         }
         
+        // Assign examID to the checkbox tag.
         if let selected = cell.viewWithTag(1) as? UIButton {
             checkBoxState[examID] = false
             selected.tag = examID
@@ -68,6 +105,7 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
         return cell;
     }
     
+    // Show additional information when exam is selected.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -81,36 +119,10 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
         present(alertController, animated: true, completion: nil)
     }
     
-    @IBOutlet weak var taskReminderLabel: UILabel!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadExamsToData()
-        tableView.reloadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        loadExamsToData()
-        tableView.reloadData()
-    }
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func touchDeassign(_ sender: UIButton) {
-        deassignExamToStudent()
-        loadView()
-    }
-    
-    @IBAction func touchAssign(_ sender: UIButton) {
-        assignExamToStudent()
-        loadView()
-    }
-    
     func assignExamToStudent() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         for (id, isChecked) in checkBoxState {
-            print(String(id))
             if isChecked {
                 print("Assigning Exam for ID " + String(id) + " to student ID " + String(studentID!))
                 let exam = appDelegate.getExam(for: id)!
@@ -126,7 +138,6 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         for (id, isChecked) in checkBoxState {
-            print(String(id))
             if isChecked {
                 print("Deassigning Exam for ID " + String(id) + " to student ID " + String(studentID!))
                 let exam = appDelegate.getExam(for: id)!
@@ -138,6 +149,7 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
         }
     }
     
+    //
     func loadExamsToData() {
         
         data.removeAll()
@@ -151,17 +163,7 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
                     row = String(examID)
                     data.append(row)
                 }
-                
             }
         }
-    }
-    
-    @IBAction func touchBack(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func checkBox(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        checkBoxState[sender.tag] = sender.isSelected
     }
 }

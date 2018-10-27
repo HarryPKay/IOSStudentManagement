@@ -17,6 +17,8 @@
 		9E81033B217C48F000814C35 /* IOSStudentManagementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81033A217C48F000814C35 /* IOSStudentManagementUITests.swift */; };
 		9E81034B217C760600814C35 /* StudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81034A217C760600814C35 /* StudentViewController.swift */; };
 		9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81034F217C8D6500814C35 /* AddStudentViewController.swift */; };
+		9E97C6D02184317D005D83E5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97C6CF2184317D005D83E5 /* MapViewController.swift */; };
+		9E97C6D321843267005D83E5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E97C6D221843266005D83E5 /* MapKit.framework */; };
 		9EBA1A812181A94C0080E11A /* AddExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A802181A94C0080E11A /* AddExamViewController.swift */; };
 		9EBA1A832181B1B00080E11A /* ExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A822181B1B00080E11A /* ExamViewController.swift */; };
 		9EBA1A852181EE550080E11A /* ModifyStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1A842181EE550080E11A /* ModifyStudentViewController.swift */; };
@@ -57,6 +59,8 @@
 		9E81033C217C48F000814C35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E81034A217C760600814C35 /* StudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentViewController.swift; sourceTree = "<group>"; };
 		9E81034F217C8D6500814C35 /* AddStudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStudentViewController.swift; sourceTree = "<group>"; };
+		9E97C6CF2184317D005D83E5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		9E97C6D221843266005D83E5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9EBA1A802181A94C0080E11A /* AddExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExamViewController.swift; sourceTree = "<group>"; };
 		9EBA1A822181B1B00080E11A /* ExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamViewController.swift; sourceTree = "<group>"; };
 		9EBA1A842181EE550080E11A /* ModifyStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyStudentViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E97C6D321843267005D83E5 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +100,7 @@
 				9E81032E217C48F000814C35 /* IOSStudentManagementTests */,
 				9E810339217C48F000814C35 /* IOSStudentManagementUITests */,
 				9E810315217C48EB00814C35 /* Products */,
+				9E97C6D121843266005D83E5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +117,7 @@
 		9E810316217C48EB00814C35 /* IOSStudentManagement */ = {
 			isa = PBXGroup;
 			children = (
+				9E97C6CF2184317D005D83E5 /* MapViewController.swift */,
 				9EBA1A802181A94C0080E11A /* AddExamViewController.swift */,
 				9EBA1A822181B1B00080E11A /* ExamViewController.swift */,
 				9E810317217C48EB00814C35 /* AppDelegate.swift */,
@@ -144,6 +151,14 @@
 				9E81033C217C48F000814C35 /* Info.plist */,
 			);
 			path = IOSStudentManagementUITests;
+			sourceTree = "<group>";
+		};
+		9E97C6D121843266005D83E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E97C6D221843266005D83E5 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,6 +295,7 @@
 				9EBA1A872181F82B0080E11A /* ExamStudentMappingViewController.swift in Sources */,
 				9E81031A217C48EB00814C35 /* HomeViewController.swift in Sources */,
 				9E81034B217C760600814C35 /* StudentViewController.swift in Sources */,
+				9E97C6D02184317D005D83E5 /* MapViewController.swift in Sources */,
 				9E810350217C8D6500814C35 /* AddStudentViewController.swift in Sources */,
 				9EBA1A832181B1B00080E11A /* ExamViewController.swift in Sources */,
 				9E810320217C48EB00814C35 /* IOSStudentManagement.xcdatamodeld in Sources */,

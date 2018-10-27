@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
+// Allows the user to add new exams.
 class AddExamViewController: UIViewController {
     
     @IBOutlet weak var examDatePicker: UIDatePicker!
@@ -31,10 +32,9 @@ class AddExamViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    //  Takes information entered into the fields and inserts a new student record.
     func createExamFromFields() {
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //let examID = examIDField.text as! Int
         
         if let examID = Int(examIDField.text!), let title = titleField.text, let examDescription = examDescriptionField.text, let location = locationField.text {
             appDelegate.insertExam(for: examID, title: title, examDescription: examDescription, location: location, date: examDatePicker.date)
@@ -43,6 +43,7 @@ class AddExamViewController: UIViewController {
         }
     }
     
+    // Clears all the fields for add new exams.
     func clearFields() {
         examDescriptionField.text = ""
         locationField.text = ""

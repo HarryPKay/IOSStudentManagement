@@ -94,6 +94,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func doesRelationshipExist(student: Student, exam: Exam) -> Bool {
+        // Retrieve all exams for student and compare their IDs with the given ID
+        // to determine if the relationship exists.
         let exams = student.exams?.allObjects as! [Exam]
         for e in exams {
             if e.examID == exam.examID {
@@ -113,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             try context.save()
-            print("saved!")
+            print("Removed student-exam mapping.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -132,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             try context.save()
-            print("saved!")
+            print("Created student-exam mapping.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -162,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //save the object
         do {
             try context.save()
-            print("saved!")
+            print("Student entry created.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -186,7 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //save the object
         do {
             try context.save()
-            print("saved!")
+            print("Exam entry created.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -282,7 +284,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Attempt to update with new values
         do {
             try context.save()
-            print("saved!")
+            print("Exam entry updated.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -311,7 +313,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Attempt to update with new values
         do {
             try context.save()
-            print("saved!")
+            print("Student entry updated.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -329,7 +331,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             try context.save()
-            print("saved!")
+            print("Removed student entry.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
@@ -349,7 +351,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             try context.save()
-            print("saved!")
+            print("Removed exam entry.")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
