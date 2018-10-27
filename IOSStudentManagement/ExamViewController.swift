@@ -25,19 +25,52 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt
         indexPath: IndexPath) -> UITableViewCell {
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "examCell", for: indexPath)
-        cell.textLabel!.text = data[indexPath.row]
+        let examID = Int(data[indexPath.row]) ?? 0
+        
+        if let exam = appDelegate.getExam(for: examID) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
+            let IDLabel = cell.contentView.viewWithTag(10001) as! UILabel
+            IDLabel.text = String(examID)
+            let titleLabel = cell.contentView.viewWithTag(10002) as! UILabel
+            titleLabel.text = exam.title
+            let dateLabel = cell.contentView.viewWithTag(10003) as! UILabel
+            dateLabel.text = dateFormatter.string(from: exam.date!)
+            let locationLabel = cell.contentView.viewWithTag(10004) as! UILabel
+            locationLabel.text = exam.location
+            let flagLabel = cell.contentView.viewWithTag(10005) as! UILabel
+            
+            // Determine if exam has past.
+            if Calendar.current.isDate(Date(), inSameDayAs: exam.date!) {
+                flagLabel.text = "Flag: Exam Happens Today"
+            } else if exam.date! > Date() {
+                flagLabel.text = "Flag: Upcomming Exam"
+            } else {
+                flagLabel.text = "Flag: Past Exam"
+            }
+        }
         
         if let selected = cell.viewWithTag(1) as? UIButton {
-            
-            let strExamID = data[indexPath.row].split(separator: ",")
-            let examID = Int(strExamID[0]) ?? 0
             checkBoxState[examID] = false
-            
             selected.tag = examID
         }
         
         return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let examID = Int(data[indexPath.row]) ?? 0
+        let exam = appDelegate.getExam(for: examID)
+        let message = exam?.examDescription
+        let alertController = UIAlertController(title: "Exam Details:", message: message, preferredStyle: .alert)
+        let alertActionCancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        
+        alertController.addAction(alertActionCancel)
+        present(alertController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -66,16 +99,13 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if let exams = appDelegate.getExams() {
-            
             for x in exams {
-                
                 var row = ""
                 if let examID = x.value(forKey: "examID") as? Int {
-                    row += String(examID)
+                    row = String(examID)
+                    data.append(row)
                 }
-                row += ", "
-                row += x.value(forKey: "title") as! String
-                data.append(row)
+                
             }
         }
     }
@@ -98,6 +128,5 @@ class ExamViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func checkBox(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         checkBoxState[sender.tag] = sender.isSelected
-        
     }
 }

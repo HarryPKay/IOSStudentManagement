@@ -49,8 +49,13 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
     // Assign each element in data to it's own cell within the tableView.
     func tableView(_ tableView: UITableView, cellForRowAt
         indexPath: IndexPath) -> UITableViewCell {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath)
         cell.textLabel!.text = data[indexPath.row]
+        let studentID = Int(data[indexPath.row])
+        if let student = appDelegate.getStudent(for: studentID!) {
+            cell.detailTextLabel?.text = student.fName! + ", " + student.lName!
+        }
         
         return cell;
     }
@@ -61,56 +66,62 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // Get the studentID that corresponds to this cell.
-        let strStudentID = data[indexPath.row].split(separator: ",")
-        let studentID = Int(strStudentID[0]) ?? -1
+        let strStudentID = data[indexPath.row]
         
-        // Retrieve the student's detail and echo it.
-        if studentID == -1 {
-            return
-        }
-        let student = appDelegate.getStudent(for: studentID)
-        
-        let dateOfBirthDate = student?.value(forKey: "dateOfBirth") as! Date
+        // Get the student
+        let studentID = Int(strStudentID) ?? -1
+        let student = appDelegate.getStudent(for: studentID)!
+    
+        // Retrieve the date
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        let dateOfBirth = formatter.string(from: dateOfBirthDate)
+        let dateOfBirth = formatter.string(from: student.dateOfBirth!)
         
-        //TODO: Consider addresses
-        let studentDetails = "Student ID:\t" + strStudentID[0]
-            + "\nFirst Name:\t" + (student?.value(forKey: "fName") as! String)
-            + "\nLast Name:\t" + (student?.value(forKey: "lName") as! String)
-            + "\nGender:\t" + (student?.value(forKey: "gender") as! String)
-            + "\ndateOfBirth:\t" + dateOfBirth
-            + "\n\ncourse:\n" + (student?.value(forKey: "course") as! String)
-        let studentAddress = "\n\naddress:\n" + (student?.value(forKey: "street") as! String)
-            + " " + (student?.value(forKey: "city") as! String)
-            + " " + (student?.value(forKey: "state") as! String)
-            + " " + (student?.value(forKey: "postCode") as! String)
+        // Retrive Student details
+        let studentDetails = "Student ID: " + strStudentID
+            + "\nFirst Name: " + student.fName!
+            + "\nLast Name: " + student.lName!
+            + "\nGender: " + student.gender!
+            + "\ndateOfBirth: " + dateOfBirth
+            + "\n\ncourse:\n" + student.course!
+        
+        // Retrieve student's address
+        let studentAddress = "\n\naddress:\n" + student.street!
+            + " " + student.city!
+            + " " + student.state!
+            + " " + student.postCode!
         let message = studentDetails + studentAddress
         
         let alertController = UIAlertController(title: "Student Details:", message: message, preferredStyle: .alert)
         
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let alertActionAddExam = UIAlertAction(title: "Add Exam", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: false) })
-        let alertActionRemoveExam = UIAlertAction(title: "Remove Exam", style: .destructive, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: true) })
+        let alertActionAddExam = UIAlertAction(title: "Assign Exam", style: .default, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: false) })
+        let alertActionRemoveExam = UIAlertAction(title: "Deassign Exam", style: .destructive, handler: { action in self.jumpToExamStudentMappingView(with: studentID, isRemovingMapping: true) })
         let alertActionShowOnMap = UIAlertAction(title: "Show on Map", style: .default, handler: { action in self.jumpToModifyStudentView(with: nil) })
         let alertActionEditStudent = UIAlertAction(title: "Edit Student", style: .default, handler: { action in self.jumpToModifyStudentView(with: studentID)
         })
         
+        let alertActionRemoveStudent = UIAlertAction(title: "Remove Student", style: .destructive, handler: {
+            action in appDelegate.removeStudent(for: studentID)
+            self.loadStudentsToData()
+            self.tableView.reloadData()
+        })
+        
+        
         alertController.addAction(alertActionAddExam)
         alertController.addAction(alertActionRemoveExam)
         alertController.addAction(alertActionEditStudent)
+        alertController.addAction(alertActionRemoveStudent)
         alertController.addAction(alertActionShowOnMap)
         alertController.addAction(alertActionCancel)
 
         present(alertController, animated: true, completion: nil)
     }
     
-    // deletes students
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         // Get the studentID for the corresponding cell selected
-        let strStudentID = data[indexPath.row].split(separator: ",")
+        let strStudentID = data[indexPath.row]
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         // Are we editing students and therefor
@@ -118,7 +129,7 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         if editingStyle == .delete {
             
             // Delete the student if found
-            if let studentID = Int(strStudentID[0]) {
+            if let studentID = Int(strStudentID) {
                 
                 appDelegate.removeStudent(for: studentID)
                 loadStudentsToData()
@@ -166,20 +177,8 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if let students = appDelegate.getStudents() {
-            
-            for x in students {
-                
-                var row = ""
-                
-                if let studentID = x.value(forKey: "studentID") as? Int {
-                    row += String(studentID)
-                }
-                
-                row += ", "
-                row += x.value(forKey: "fName") as! String
-                row += ", "
-                row += x.value(forKey: "lName") as! String
-                data.append(row)
+            for student in students {
+                data.append(String(student.studentID))
             }
         }
     }

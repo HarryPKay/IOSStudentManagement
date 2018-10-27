@@ -37,7 +37,7 @@ class AddExamViewController: UIViewController {
         //let examID = examIDField.text as! Int
         
         if let examID = Int(examIDField.text!), let title = titleField.text, let examDescription = examDescriptionField.text, let location = locationField.text {
-            appDelegate.storeExam(for: examID, title: title, examDescription: examDescription, location: location, date: examDatePicker.date)
+            appDelegate.insertExam(for: examID, title: title, examDescription: examDescription, location: location, date: examDatePicker.date)
         } else {
             print("Fill out all fields")
         }

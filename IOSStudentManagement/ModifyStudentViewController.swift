@@ -130,7 +130,7 @@ class ModifyStudentViewController: UIViewController, UIPickerViewDataSource, UIP
             // Or be adding new students?
         } else {
             
-            appDelegate.storeStudent(for: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender, postCode: postCodeField.text!, state: stateField.text!, city: cityField.text!, street:  streetField.text!)
+            appDelegate.insertStudent(for: Int(studentIDField.text!)!, lName: lNameField.text!, fName: fNameField.text!, dateOfBirth: dateOfBirthDP.date, course: course, gender: gender, postCode: postCodeField.text!, state: stateField.text!, city: cityField.text!, street:  streetField.text!)
             clearFields()
         }
     }

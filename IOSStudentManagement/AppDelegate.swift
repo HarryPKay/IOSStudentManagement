@@ -98,11 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func createStudentExamMapping(for studentID: Int, for exams: [Exam]) {
         
         let context = getContext()
-        let student = getStudent(for: studentID)
-        let s = student as! Student
+        let student = getStudent(for: studentID)!
         
         for exam in exams {
-            s.addToExams(exam)
+            student.addToExams(exam)
         }
         
         do {
@@ -115,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func storeStudent (for studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String, postCode: String, state: String, city: String, street: String) {
+    func insertStudent (for studentID: Int, lName: String, fName: String, dateOfBirth: Date, course: String, gender: String, postCode: String, state: String, city: String, street: String) {
         
         let context = getContext()
         //retrieve the entity that we just created
@@ -145,7 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func storeExam(for examID: Int, title: String, examDescription: String, location: String, date: Date) {
+    func insertExam(for examID: Int, title: String, examDescription: String, location: String, date: Date) {
         
         //retrieve the entity that we just created
         let context = getContext()
@@ -169,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func getStudents () -> [NSManagedObject]? {
+    func getStudents () -> [Student]? {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -179,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
         let searchResults = try getContext().fetch(fetchRequest)
-            return searchResults as [NSManagedObject]?
+            return searchResults as [Student]?
         } catch {
             print("Error with request: \(error)")
         }
@@ -187,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     
-    func getExams () -> [NSManagedObject]? {
+    func getExams () -> [Exam]? {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -197,7 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             let searchResults = try getContext().fetch(fetchRequest)
-            return searchResults as [NSManagedObject]?
+            return searchResults as [Exam]?
         } catch {
             print("Error with request: \(error)")
         }
@@ -205,7 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     
-    func getStudent(for ID: Int) -> NSManagedObject? {
+    func getStudent(for ID: Int) -> Student? {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -215,14 +214,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             let searchResults = try getContext().fetch(fetchRequest)
-            return searchResults[0] as? NSManagedObject
+            return searchResults[0] as? Student
         } catch {
             print("Error with request: \(error)")
         }
         return nil
     }
     
-    func getExam(for ID: Int) -> NSManagedObject? {
+    func getExam(for ID: Int) -> Exam? {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -232,7 +231,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             let searchResults = try getContext().fetch(fetchRequest)
-            return searchResults[0] as? NSManagedObject
+            return searchResults[0] as? Exam
         } catch {
             print("Error with request: \(error)")
         }
@@ -333,20 +332,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return
     }
-    
-    /*func removeRecords () {
-        
-        let context = getContext()
-        // delete everything in the table Person
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Student")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-        
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-        } catch {
-            print ("There was an error")
-        }
-    }*/
 }
 
