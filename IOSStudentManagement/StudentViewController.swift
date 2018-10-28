@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Foundation
 
 // Provides the interface to allow the user to view and delete students. Provide navigation to
 // assign exams to student and show student's address on map
@@ -57,11 +58,11 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // If we are editing, show label for finishing
         if isInEditingMode {
-            editLabel.setTitle("Done", for: UIControl.State.normal)
+            editLabel.setTitle("Done", for: UIControlState.normal)
             tableView.setEditing(true, animated: true)
         }
         else {
-            editLabel.setTitle("Delete", for: UIControl.State.normal)
+            editLabel.setTitle("Delete", for: UIControlState.normal)
             tableView.setEditing(false, animated: true)
         }
     }
@@ -156,7 +157,7 @@ class StudentViewController: UIViewController, UITableViewDelegate, UITableViewD
         present(alertController, animated: true, completion: nil)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         // Get the studentID for the corresponding cell selected
         let strStudentID = data[indexPath.row]

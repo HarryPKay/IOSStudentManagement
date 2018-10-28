@@ -30,12 +30,16 @@ class ExamStudentMappingViewController: UIViewController, UITableViewDelegate, U
     
     @IBAction func touchDeassign(_ sender: UIButton) {
         deassignExamToStudent()
-        loadView()
+        loadExamsToData()
+        tableView.reloadData()
+        //loadView()
     }
     
     @IBAction func touchAssign(_ sender: UIButton) {
         assignExamToStudent()
-        loadView()
+        loadExamsToData()
+        tableView.reloadData()
+        //loadView()
     }
     
     @IBAction func touchBack(_ sender: UIButton) {
