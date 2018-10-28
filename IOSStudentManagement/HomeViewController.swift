@@ -11,10 +11,10 @@ import UIKit
 
 // Changes which tab is viewed based on which button is pressed.
 class HomeViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        setGradientBackground()
     }
 
     @IBAction func touchExamButton(_ sender: UIButton) {
@@ -29,5 +29,16 @@ class HomeViewController: UIViewController {
     @IBAction func touchMapButton(_ sender: UIButton) {
         self.tabBarController?.selectedIndex = 3
     }
+    
+    func setGradientBackground() {
+        
+        let top =  UIColor(red: 22.0/255.0, green: 114.0/255.0, blue: 245.0/255.0, alpha: 1.0).cgColor
+        let bottom = UIColor(red: 150.0/255.0, green: 210.0/255.0, blue: 253.0/255.0, alpha: 1.0).cgColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [top, bottom]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.frame = self.view.bounds
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
 }
-

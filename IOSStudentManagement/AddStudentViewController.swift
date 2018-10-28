@@ -60,7 +60,7 @@ class AddStudentViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         let selectedCourse = student?.course
         // Default to the first row if course cannot be determined
-        let indexOfSelectedCourse = pickerData.firstIndex(of: selectedCourse!) ?? 0
+        let indexOfSelectedCourse = pickerData.index(of: selectedCourse!) ?? 0
         coursePicker.selectRow(indexOfSelectedCourse, inComponent: 0, animated: true)
         
         dateOfBirthDP.date = student!.dateOfBirth!
